@@ -1,0 +1,96 @@
+﻿<UserControl x:Class="UniversalModal.WPF.Views.UniversalModalContainerNamedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:modalContentPresenter="clr-namespace:UniversalModal.WPF.ModalContentPresenter"
+             xmlns:interfaces="clr-namespace:UniversalModal.WPF.Interfaces"
+             xmlns:converters1="clr-namespace:UniversalModal.WPF.Converters"
+             x:Name="UniversalTemplate"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance interfaces:IUniversalContainerNamed, IsDesignTimeCreatable = True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Themes/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <modalContentPresenter:ModalContentPresenter IsModal="{Binding IsModalVisible}">
+                <Grid>
+                    <Grid.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource OverButton}"/>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" HorizontalAlignment="Left">
+                        <Button Command="{Binding OpenModalCommand}" ToolTip="Add"
+                                        Visibility="{Binding ShowAddButton,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                                    Converter={converters1:BoolToVisibility Collapse=True}}" >
+                            <TextBlock Text="+"
+                                                         Width="15" 
+                                                         Margin="10,0"
+                                                         HorizontalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                     Value="true">
+                                                <Setter Property="Foreground" Value="{StaticResource GreenSeagreenBrush}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                     Value="false">
+                                                <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <ContentPresenter Grid.Row="1" Content="{TemplateBinding Content}"/>
+                </Grid>
+                <modalContentPresenter:ModalContentPresenter.ModalContent>
+                    <Grid>
+                        <Grid.InputBindings>
+                            <KeyBinding Key="Enter" Command="{Binding CreateNewCommand}"
+                                        CommandParameter="{Binding NewName}"/>
+                        </Grid.InputBindings>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBox Text="{Binding NewName,
+                        UpdateSourceTrigger=PropertyChanged}" 
+                                     Height="25" Width="200"
+                                     VerticalContentAlignment="Center"
+                                     FontWeight="Bold"
+                                     MaxLength="30"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" Margin =" 10,2" Content="Ok"
+                                        Command="{Binding CreateNewCommand}"
+                                        CommandParameter="{Binding NewName}"
+                                        Background="Azure"/>
+
+                                <Button Grid.Column="1" Margin =" 10,2" Content="Cancel"
+                                        Command="{Binding CloseModalCommand}"
+                                        Background="Azure"/>
+                            </Grid>
+                        </StackPanel>
+
+                    </Grid>
+                </modalContentPresenter:ModalContentPresenter.ModalContent>
+
+            </modalContentPresenter:ModalContentPresenter>
+        </ControlTemplate>
+    </UserControl.Template>
+</UserControl>

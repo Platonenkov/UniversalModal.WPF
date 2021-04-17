@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MathCore" Version="0.0.42" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.13.3" />
+  </ItemGroup>
+
+</Project>
