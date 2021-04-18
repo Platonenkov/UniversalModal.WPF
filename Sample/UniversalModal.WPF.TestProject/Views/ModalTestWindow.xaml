@@ -1,0 +1,29 @@
+﻿<Window x:Class="UniversalModal.WPF.TestProject.Views.ModalTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniversalModal.WPF.TestProject.Views"
+        xmlns:modalContentPresenter="clr-namespace:UniversalModal.WPF.ModalContentPresenter;assembly=UniversalModal.WPF"
+        xmlns:views="clr-namespace:UniversalModal.WPF.Views;assembly=UniversalModal.WPF"
+        xmlns:interfaces="clr-namespace:UniversalModal.WPF.Interfaces;assembly=UniversalModal.WPF"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="ModalTestWindow" Height="450" Width="800"
+        d:DataContext="{d:DesignInstance interfaces:IModalContainer, IsDesignTimeCreatable=True}">
+    <Grid>
+        <views:UniversalModalView Controller="{Binding}" ShowCloseButton="True" ShowOpenButton="True">
+            <views:UniversalModalView.MainContent>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Main data information. Press top and right button to open modal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            </views:UniversalModalView.MainContent>
+            <views:UniversalModalView.ModalContent>
+                <Grid>
+                    <TextBlock Text="Some information or content. What you want." HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBlock Text="Some information or content. What you want." HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                </Grid>
+            </views:UniversalModalView.ModalContent>
+        </views:UniversalModalView>
+    </Grid>
+</Window>

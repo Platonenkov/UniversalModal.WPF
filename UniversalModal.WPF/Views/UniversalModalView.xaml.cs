@@ -27,7 +27,7 @@ namespace UniversalModal.WPF.Views
                 nameof(ShowOpenButton),
                 typeof(bool),
                 typeof(UniversalModalView),
-                new PropertyMetadata(default(bool)));
+                new PropertyMetadata(true));
 
         /// <summary>Показать базовую кнопку открытия модального окна</summary>
         public bool ShowOpenButton { get => (bool)GetValue(ShowOpenButtonProperty); set => SetValue(ShowOpenButtonProperty, value); }
@@ -42,7 +42,7 @@ namespace UniversalModal.WPF.Views
                 nameof(ShowCloseButton),
                 typeof(bool),
                 typeof(UniversalModalView),
-                new PropertyMetadata(default(bool)));
+                new PropertyMetadata(true));
 
         /// <summary>Показать базовую кнопку закрытия модального окна</summary>
         public bool ShowCloseButton { get => (bool)GetValue(ShowCloseButtonProperty); set => SetValue(ShowCloseButtonProperty, value); }

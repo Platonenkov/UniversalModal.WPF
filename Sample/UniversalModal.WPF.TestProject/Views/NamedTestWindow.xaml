@@ -1,0 +1,139 @@
+﻿<Window x:Class="UniversalModal.WPF.TestProject.Views.NamedTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniversalModal.WPF.TestProject.Views"
+        xmlns:views="clr-namespace:UniversalModal.WPF.Views;assembly=UniversalModal.WPF"
+        xmlns:base="clr-namespace:UniversalModal.WPF.TestProject.Classes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="NamedTestWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/UniversalModal.WPF;component/Themes/Button.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <views:UniversalModalContainerNamedView ShowAddButton="False" DataContext="{Binding }" Margin="3">
+        <DockPanel>
+            <DataGrid ItemsSource="{Binding Elements, UpdateSourceTrigger=PropertyChanged}"
+                      AutoGenerateColumns="False"
+                      VirtualizingPanel.ScrollUnit="Pixel" CanUserAddRows="False" CanUserDeleteRows="False"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="40" MinWidth="50" >
+                        <DataGridTemplateColumn.Header>
+                            <Button Style="{StaticResource OverButton}" ToolTip="Remove" 
+                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        Command="{Binding DataContext.OpenModalCommand,
+                                                        RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}">
+                                <TextBlock Text="&#xE0C5;" FontFamily="Segoe UI Symbol" FontWeight="Bold" FontSize="8"
+                                                   HorizontalAlignment="Center" >
+                                    <TextBlock.Style>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                         Value="true">
+                                                    <Setter Property="Foreground" Value="{StaticResource GreenSeagreenBrush}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                         Value="false">
+                                                    <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Button>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type base:NamedTestClass}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource OverButton}" ToolTip="Remove" 
+                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        Command="{Binding DataContext.RemoveElementCommand,
+                                                        RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}">
+                                        <TextBlock Text="&#xE0D9;" FontFamily="Segoe UI Symbol" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" >
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                         Value="true">
+                                                            <Setter Property="Foreground" Value="{StaticResource RedTomatoBrush}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                         Value="false">
+                                                            <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Button>
+                                    <Button Style="{StaticResource OverButton}" ToolTip="Rename" 
+                                            VerticalAlignment="Center" HorizontalAlignment="Right"
+                                            Command="{Binding DataContext.RenameElementCommand, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding SelectedItem,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                            DockPanel.Dock="Right">
+                                        <TextBlock Text="&#xE0D8;" FontFamily="Segoe UI Symbol" FontWeight="Bold"
+                                                   HorizontalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                     Value="true">
+                                                            <Setter Property="Foreground" Value="{StaticResource OrangeBrush}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                     Value="false">
+                                                            <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Button>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.Header>
+                            <DockPanel>
+                                <TextBlock Text="Name" />
+                            </DockPanel>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type base:NamedTestClass}">
+                                <TextBlock Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" Margin="3,0" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <DockPanel>
+                                <TextBlock Text="Description" />
+                            </DockPanel>
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type base:NamedTestClass}">
+                                <TextBlock Text="{Binding Description,UpdateSourceTrigger=PropertyChanged}" Margin="3,0" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </DockPanel>
+
+    </views:UniversalModalContainerNamedView>
+</Window>

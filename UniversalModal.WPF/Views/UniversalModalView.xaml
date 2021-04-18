@@ -19,6 +19,8 @@
         <ControlTemplate TargetType="UserControl">
             <modalContentPresenter:ModalContentPresenter 
                 IsModal="{Binding Controller.IsModalVisible ,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
+                UpdateSourceTrigger=PropertyChanged}"
+                OverlayBrush="{Binding Controller.ModalBrush ,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                 UpdateSourceTrigger=PropertyChanged}">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -31,7 +33,7 @@
                                 Visibility="{Binding ShowOpenButton, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                                     Converter={converters:BoolToVisibility Collapse=True}}"
                                 HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <TextBlock Text="#E141"
+                        <TextBlock Text="&#x1F313;" FontFamily="Segoe UI Symbol"
                                              Width="16" 
                                              Margin="2,0"
                                              HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -68,10 +70,10 @@
                                 Visibility="{Binding ShowCloseButton, RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                                     Converter={converters:BoolToVisibility Collapse=True}}" 
                                 HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <TextBlock Text="#E196"
-                                             Width="16" 
-                                             Margin="2,0"
-                                             HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <TextBlock Text="&#x1F313;" FontFamily="Segoe UI Symbol"
+                                       Width="16" 
+                                       Margin="2,0"
+                                       HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">
                                         <Style.Triggers>

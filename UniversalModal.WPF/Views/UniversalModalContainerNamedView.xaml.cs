@@ -12,7 +12,7 @@ namespace UniversalModal.WPF.Views
 
         #region ShowAddButton : bool - Показывать кнопуку добавить 
 
-        /// <summary>Показывать кнопуку добавить </summary>
+        /// <summary>Показывать кнопку добавить </summary>
         public static readonly DependencyProperty ShowAddButtonProperty =
             DependencyProperty.Register(
                 nameof(ShowAddButton),

@@ -21,7 +21,7 @@
     </UserControl.Resources>
     <UserControl.Template>
         <ControlTemplate TargetType="UserControl">
-            <modalContentPresenter:ModalContentPresenter IsModal="{Binding IsModalVisible}">
+            <modalContentPresenter:ModalContentPresenter IsModal="{Binding IsModalVisible}" OverlayBrush="{Binding ModalBrush}">
                 <Grid>
                     <Grid.Resources>
                         <Style TargetType="Button" BasedOn="{StaticResource OverButton}"/>
@@ -34,8 +34,7 @@
                         <Button Command="{Binding OpenModalCommand}" ToolTip="Add"
                                         Visibility="{Binding ShowAddButton,RelativeSource={RelativeSource AncestorType={x:Type UserControl}},
                                     Converter={converters1:BoolToVisibility Collapse=True}}" >
-                            <TextBlock Text="+"
-                                                         Width="15" 
+                            <TextBlock Text="+" FontWeight="Bold" FontSize="25" 
                                                          Margin="10,0"
                                                          HorizontalAlignment="Center">
                                 <TextBlock.Style>

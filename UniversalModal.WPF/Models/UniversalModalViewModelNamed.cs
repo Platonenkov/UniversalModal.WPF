@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media;
 using MathCore.WPF.Commands;
 using UniversalModal.WPF.Interfaces;
 
@@ -26,14 +27,28 @@ namespace UniversalModal.WPF.Models
         /// </summary>
         /// <param name="elements">Список элементов</param>
         /// <param name="UseUniqueNames">Использовать уникальные имена элементов</param>
-        public UniversalModalViewModelNamed(IEnumerable<T> elements, bool UseUniqueNames) : this()
+        /// <param name="ModalBrush">цвет модального фона</param>
+        public UniversalModalViewModelNamed(IEnumerable<T> elements, bool UseUniqueNames, SolidColorBrush ModalBrush = null) : this()
         {
+            ModalBrush ??= new SolidColorBrush(Color.FromArgb(200, 169, 169, 169));
+            this.ModalBrush = ModalBrush;
             Elements = new ObservableCollection<T>(elements);
             UseUnique = UseUniqueNames;
         }
 
         #region Свойства
         public bool UseUnique { get; set; } = true;
+
+        private Brush _ModalBrush = new SolidColorBrush(Color.FromArgb(200, 169, 169, 169));
+        public Brush ModalBrush
+        {
+            get => _ModalBrush;
+            set
+            {
+                _ModalBrush = value;
+                OnPropertyChanged(nameof(ModalBrush));
+            }
+        }
 
         #region Elements : ObservableCollection<T> - перечисление элементов
 

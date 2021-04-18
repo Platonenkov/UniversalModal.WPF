@@ -16,7 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <views:UniversalModalView Controller="{Binding }" >
+    <views:UniversalModalView Controller="{Binding }" ShowCloseButton="False" ShowOpenButton="False">
         <views:UniversalModalView.MainContent>
             <DataGrid  ItemsSource="{Binding DataContext.Elements, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                        VirtualizingPanel.ScrollUnit="Pixel">
@@ -28,10 +28,8 @@
                                                 VerticalAlignment="Center" HorizontalAlignment="Center"
                                                 Command="{Binding DataContext.OpenModalCommand,
                                                         RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
-                                <TextBlock Text="+"
-                                                             Width="16"
-                                                             Margin="5,0"
-                                                             HorizontalAlignment="Center" >
+                                <TextBlock Text="&#xE0C5;" FontFamily="Segoe UI Symbol" FontWeight="Bold" FontSize="8"
+                                           HorizontalAlignment="Center" >
                                     <TextBlock.Style>
                                         <Style TargetType="{x:Type TextBlock}">
                                             <Style.Triggers>
@@ -51,38 +49,60 @@
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource OverButton}" 
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource OverButton}" 
                                         ToolTip="Remove" 
                                                 VerticalAlignment="Center" HorizontalAlignment="Center"
                                                 Command="{Binding DataContext.RemoveElementCommand,
                                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
-                                    <TextBlock Text="X"
-                                                Width="16"
-                                                Margin="5,0"
-                                                HorizontalAlignment="Center" >
-                                        <TextBlock.Style>
-                                            <Style TargetType="{x:Type TextBlock}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                        <TextBlock Text="&#xE0D9;" FontFamily="Segoe UI Symbol" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" >
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                                                          Value="true">
-                                                        <Setter Property="Foreground" Value="{StaticResource RedTomatoBrush}"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                            <Setter Property="Foreground" Value="{StaticResource RedTomatoBrush}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
                                                                          Value="false">
-                                                        <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Button>
+                                                            <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Button>
+                                    <Button Style="{StaticResource OverButton}" 
+                                        ToolTip="Edit" 
+                                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Command="{Binding DataContext.EditElementCommand,
+                                                        RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}">
+                                        <TextBlock Text="&#xE0D8;" FontFamily="Segoe UI Symbol" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" >
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                         Value="true">
+                                                            <Setter Property="Foreground" Value="{StaticResource RedTomatoBrush}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                                                         Value="false">
+                                                            <Setter Property="Foreground" Value="{StaticResource DarkGrayBrush}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Binding="{Binding}" 
-                                        Header="{Binding HeaderContent,
-                        RelativeSource={RelativeSource AncestorType={x:Type views:EnumerableUniversalModalContainerView}}}" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </views:UniversalModalView.MainContent>

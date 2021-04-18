@@ -9,6 +9,7 @@
     <SolidColorBrush x:Key="DarkGrayBrush" Color="DarkGray" p:Freeze="True"/>
     <SolidColorBrush x:Key="RedTomatoBrush" Color="#FF6347" p:Freeze="True"/>
     <SolidColorBrush x:Key="DarkBlueBrush" Color="DarkBlue" p:Freeze="True"/>
+    <SolidColorBrush x:Key="OrangeBrush" Color="Orange" p:Freeze="True"/>
 
     <ScaleTransform x:Key="Scale1.1" ScaleX="1.1" ScaleY="1.1" p:Freeze="True"/>
     <ScaleTransform x:Key="Scale0.9" ScaleX="0.9" ScaleY="0.9" p:Freeze="True"/>

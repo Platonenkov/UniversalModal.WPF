@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows.Media;
 using MathCore.ViewModels;
 using MathCore.WPF.Commands;
 using UniversalModal.WPF.Interfaces;
@@ -18,7 +19,7 @@ namespace UniversalModal.WPF.Models
             CloseModalCommand = new LambdaCommand(OnCloseModalExecuted);
             CreateNewCommand = new LambdaCommand<object>(OnCreateNewCommandExecuted, CanCreateNewCommandExecuted);
             RemoveElementCommand = new LambdaCommand<int>(OnRemoveElementCommandExecuted);
-            ChangeElementCommand = new LambdaCommand<int>(OnChangeElementCommandExecuted);
+            EditElementCommand = new LambdaCommand<int>(OnEditElementCommandExecuted);
         }
 
         /// <summary>
@@ -26,14 +27,27 @@ namespace UniversalModal.WPF.Models
         /// </summary>
         /// <param name="elements">Список элементов</param>
         /// <param name="UseUniqueNames">Использовать уникальные имена элементов</param>
-        public EnumerableUniversalModalViewModel(IEnumerable<T> elements, bool UseUniqueNames) : this()
+        /// <param name="ModalBrush">цвет модального фона</param>
+        public EnumerableUniversalModalViewModel(IEnumerable<T> elements, bool UseUniqueNames, SolidColorBrush ModalBrush = null) : this()
         {
+            ModalBrush ??= new SolidColorBrush(Color.FromArgb(200, 169, 169, 169));
+            this.ModalBrush = ModalBrush;
             Elements = new ObservableCollection<T>(elements);
             UseUnique = UseUniqueNames;
         }
 
         #region Свойства
         public bool UseUnique { get; set; } = true;
+        private Brush _ModalBrush;
+        public Brush ModalBrush
+        {
+            get => _ModalBrush;
+            set
+            {
+                _ModalBrush = value;
+                OnPropertyChanged(nameof(ModalBrush));
+            }
+        }
 
         #region Elements : ObservableCollection<T> - перечисление элементов
 
@@ -121,7 +135,7 @@ namespace UniversalModal.WPF.Models
 
             if (IsEditElement != null && IsEditElement.Value.status)
             {
-                Elements[IsEditElement.Value.index] = elem;
+                Elements[IsEditElement.Value.index] = Convert.ChangeType(elem, typeof(T));
                 IsModalVisible = false;
                 IsEditElement = null;
                 NewElement = default(T);
@@ -132,15 +146,16 @@ namespace UniversalModal.WPF.Models
             NewElement = default(T);
             
             Elements.Add(Convert.ChangeType(elem, typeof(T)));
-            //OnPropertyChanged(nameof(Elements));
         }
 
         private bool CanCreateNewCommandExecuted(object elem)
         {
+            if (elem is null) return false;
+
             if (!UseUnique) return true;
             if (typeof(T) == typeof(string) && ((string)elem).IsNullOrWhiteSpace())
                 return false;
-            if (Elements.Contains(elem))
+            if (Elements.Contains(Convert.ChangeType(elem, typeof(T))))
                 return false;
             return true;
         }
@@ -160,12 +175,12 @@ namespace UniversalModal.WPF.Models
 
         #endregion
 
-        #region Command ChangeElementCommand : Команда изменить элемент
+        #region Command EditElementCommand : Команда изменить элемент
 
         /// <summary>Команда изменить элемент</summary>
-        public ICommand ChangeElementCommand { get; }
+        public ICommand EditElementCommand { get; }
 
-        private void OnChangeElementCommandExecuted(int index)
+        private void OnEditElementCommandExecuted(int index)
         {
             if(index<0)return;
             
