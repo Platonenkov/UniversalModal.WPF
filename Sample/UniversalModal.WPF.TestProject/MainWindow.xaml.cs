@@ -57,8 +57,6 @@ namespace UniversalModal.WPF.TestProject
             var model = new EnumerableUniversalModalViewModel<int>(data,true, new SolidColorBrush(Color.FromArgb(200, 169, 169, 169)));
             
             var win = new EnumerableTestWindow(){DataContext = model};
-            //var content = new EnumerableUniversalModalContainerView("This show how enumerate int collection") {DataContext = model};
-            //win.Content = content;
             win.Show();
 
         }
