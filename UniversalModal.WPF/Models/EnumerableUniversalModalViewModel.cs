@@ -180,14 +180,21 @@ namespace UniversalModal.WPF.Models
 
         private bool CanCreateNewCommandExecuted(object elem)
         {
-            if (elem is null) return false;
+            try
+            {
+                if (elem is null) return false;
 
-            if (!UseUnique) return true;
-            if (typeof(T) == typeof(string) && string.IsNullOrWhiteSpace((string)elem))
+                if (!UseUnique) return true;
+                if (typeof(T) == typeof(string) && string.IsNullOrWhiteSpace((string)elem))
+                    return false;
+                if (Elements.Contains(Convert.ChangeType(elem, typeof(T))))
+                    return false;
+                return true;
+            }
+            catch (Exception)
+            {
                 return false;
-            if (Elements.Contains(Convert.ChangeType(elem, typeof(T))))
-                return false;
-            return true;
+            }
         }
 
         #endregion

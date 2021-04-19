@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -41,16 +42,24 @@ namespace UniversalModal.WPF.Models
 
         private bool CanCreateNewCommandExecut(T element)
         {
-            if (element is null)
+            try
             {
-                if (Elements.Contains(default))
+                if (element is null)
+                {
+                    if (Elements.Contains(default))
+                        return false;
+                }
+
+                if (Elements.Contains(element))
                     return false;
+
+                return true;
+
             }
-
-            if (Elements.Contains(element))
+            catch (Exception )
+            {
                 return false;
-
-            return true;
+            }
         }
 
         private void OnCreateNewCommandExecuted(T element) => Elements.Add(element is null ? default : element);
