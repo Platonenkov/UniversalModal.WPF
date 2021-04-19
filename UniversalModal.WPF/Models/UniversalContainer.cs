@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using MathCore.WPF.Commands;
+using UniversalModal.WPF.Commands;
 using UniversalModal.WPF.Interfaces;
 
 namespace UniversalModal.WPF.Models
@@ -23,7 +23,7 @@ namespace UniversalModal.WPF.Models
 
         public virtual bool UseUnique { get; }
 
-        #region Elements : ObservableCollection<T> - перечисление элементов
+        #region Elements : IList - перечисление элементов
 
 
         /// <summary>перечисление фильтров</summary>

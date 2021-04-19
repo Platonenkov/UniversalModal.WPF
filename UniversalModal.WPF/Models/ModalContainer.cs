@@ -2,8 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
-using MathCore.Annotations;
-using MathCore.WPF.Commands;
+using UniversalModal.WPF.Commands;
+using UniversalModal.WPF.Helpers;
 using UniversalModal.WPF.Interfaces;
 
 namespace UniversalModal.WPF.Models

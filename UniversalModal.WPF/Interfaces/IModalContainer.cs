@@ -1,6 +1,5 @@
 ﻿using System.Windows.Input;
 using System.Windows.Media;
-using MathCore.WPF.Commands;
 
 namespace UniversalModal.WPF.Interfaces
 {

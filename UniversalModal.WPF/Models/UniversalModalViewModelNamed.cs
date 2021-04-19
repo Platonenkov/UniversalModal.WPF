@@ -2,15 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Media;
-using MathCore.WPF.Commands;
+using UniversalModal.WPF.Annotations;
+using UniversalModal.WPF.Commands;
 using UniversalModal.WPF.Interfaces;
 
 namespace UniversalModal.WPF.Models
 {
-    public class UniversalModalViewModelNamed<T> : MathCore.ViewModels.ViewModel, IUniversalContainerNamed where T : INamedElement, new()
+    public class UniversalModalViewModelNamed<T> : INotifyPropertyChanged, IUniversalContainerNamed where T : INamedElement, new()
     {
 
         public UniversalModalViewModelNamed()
@@ -56,7 +59,15 @@ namespace UniversalModal.WPF.Models
         private ObservableCollection<T> _Elements;
 
         /// <summary>перечисление фильтров</summary>
-        public IList Elements { get => _Elements; set => Set(ref _Elements, (ObservableCollection<T>)value); }
+        public IList Elements
+        {
+            get => _Elements;
+            set
+            {
+                _Elements = (ObservableCollection<T>)value;
+                OnPropertyChanged(nameof(Elements));
+            }
+        }
 
         #endregion
 
@@ -66,7 +77,15 @@ namespace UniversalModal.WPF.Models
         private string _NewName;
 
         /// <summary>Имя нового элемента</summary>
-        public string NewName { get => _NewName; set => Set(ref _NewName, value); }
+        public string NewName
+        {
+            get => _NewName;
+            set
+            {
+                _NewName = value;
+                OnPropertyChanged(nameof(NewName));
+            }
+        }
 
         #endregion
 
@@ -76,7 +95,15 @@ namespace UniversalModal.WPF.Models
         private bool _IsModalVisible;
 
         /// <summary>Статус видимости модального окна</summary>
-        public bool IsModalVisible { get => _IsModalVisible; set => Set(ref _IsModalVisible, value); }
+        public bool IsModalVisible
+        {
+            get => _IsModalVisible;
+            set
+            {
+                _IsModalVisible = value;
+                OnPropertyChanged(nameof(IsModalVisible));
+            }
+        }
 
         #endregion
 
@@ -86,7 +113,15 @@ namespace UniversalModal.WPF.Models
         private (bool status, T element)? _IsNameEdit;
 
         /// <summary>Режим редактирования имени</summary>
-        public (bool status, T element)? IsNameEdit { get => _IsNameEdit; set => Set(ref _IsNameEdit, value); }
+        public (bool status, T element)? IsNameEdit
+        {
+            get => _IsNameEdit;
+            set
+            {
+                _IsNameEdit = value;
+                OnPropertyChanged(nameof(IsNameEdit));
+            }
+        }
 
         #endregion
 
@@ -146,7 +181,7 @@ namespace UniversalModal.WPF.Models
         }
 
         private bool CanCreateNewCommandExecuted(string name) =>
-            !name.IsNullOrWhiteSpace() && (!UseUnique || !Elements.OfType<INamedElement>().Any(e => e.Name == name));
+            !string.IsNullOrWhiteSpace(name) && (!UseUnique || !Elements.OfType<INamedElement>().Any(e => e.Name == name));
 
         #endregion
 
@@ -174,5 +209,13 @@ namespace UniversalModal.WPF.Models
         #endregion
 
         #endregion
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+        }
     }
 }

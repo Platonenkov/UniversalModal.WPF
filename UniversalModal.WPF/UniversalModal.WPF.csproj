@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFrameworks>net5.0-windows;netcoreapp3.1-windows;net4.6-windows;net4.6.1-windows;net4.7-windows;net4.8-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
     <Description>Модальное окно для WPF
 Modal window for WPF
 
@@ -17,15 +18,14 @@ implement IEnumerable container</Description>
 Modal window for WPF
 
 Реализация управления коллекцией IEnumerable
-implement IEnumerable container</PackageReleaseNotes>
+implement IEnumerable container
+
+удалены зависимости
+поддержка платформ</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>https://github.com/Platonenkov</Copyright>
+    <Version>1.0.0.2</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MathCore" Version="0.0.42" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.13.3" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE">
@@ -36,6 +36,9 @@ implement IEnumerable container</PackageReleaseNotes>
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 
 </Project>

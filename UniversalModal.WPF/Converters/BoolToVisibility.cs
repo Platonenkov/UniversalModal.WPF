@@ -7,17 +7,27 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using MathCore.WPF.Converters;
+using UniversalModal.WPF.Helpers;
 
 namespace UniversalModal.WPF.Converters
 {
+    [MarkupExtensionReturnType(typeof(ValueConverter))]
+    internal abstract class ValueConverter : MarkupExtension, IValueConverter
+    {
+        public override object ProvideValue(IServiceProvider sp) => this;
+
+        public abstract object Convert(object v, [NotNull] Type t, object p, [NotNull] CultureInfo c);
+
+        public virtual object ConvertBack(object v, [NotNull] Type t, object p, [NotNull] CultureInfo c) => throw new NotSupportedException();
+    }
+
     [MarkupExtensionReturnType(typeof(BoolToVisibility)), ValueConversion(typeof(bool), typeof(Visibility))]
     internal class BoolToVisibility : ValueConverter
     {
         public bool Collapse { get; set; }
         public bool Inverse { get; set; }
 
-        protected override object Convert(object v, Type t, object parameter, CultureInfo c)
+        public override object Convert(object v, Type t, object parameter, CultureInfo c)
         {
             return v switch
             {
@@ -30,7 +40,7 @@ namespace UniversalModal.WPF.Converters
             };
         }
 
-        protected override object ConvertBack(object v, Type t, object p, CultureInfo c)
+        public override object ConvertBack(object v, Type t, object p, CultureInfo c)
         {
             return v switch
             {
