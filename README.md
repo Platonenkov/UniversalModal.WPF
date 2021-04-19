@@ -4,7 +4,7 @@ Modal window for WPF
 implement IEnumerable container
 
 ### Installation:
-Install-Package UniversalModal.WPF -Version 1.0.0.2
+Install-Package UniversalModal.WPF -Version 1.0.0.3
 
 ## Usage:
 add to view this code
