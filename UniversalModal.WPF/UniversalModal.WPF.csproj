@@ -24,6 +24,7 @@ implement IEnumerable container
 поддержка платформ</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>https://github.com/Platonenkov</Copyright>
+    <Authors>APlatonenkov</Authors>
     <Version>1.0.0.2</Version>
   </PropertyGroup>
 
