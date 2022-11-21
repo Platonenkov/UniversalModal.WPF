@@ -1,0 +1,35 @@
+name: Publish NuGet.org
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    name: Update package
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@master
+      
+      - name: Use .NET 6.0.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+        
+      - name: Building
+        run: dotnet build UniversalModal.WPF\UniversalModal.WPF.csproj -c Release
+        
+      - name: Packing
+        run: |                    
+          dotnet build UniversalModal.WPF/UniversalModal.WPF.csproj -c Release
+          dotnet pack UniversalModal.WPF/UniversalModal.WPF.csproj -c Release
+      - name: Publish GitHub
+        run: |
+          dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://nuget.pkg.github.com/Platonenkov/index.json -k ${{secrets.GITHUB_TOKEN}}
+          dotnet nuget push "**/*.snupkg" --skip-duplicate --source https://nuget.pkg.github.com/Platonenkov/index.json -k ${{secrets.GITHUB_TOKEN}}
+      - name: Publish NuGet
+        run: |
+          dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetApiKey }} 
+          dotnet nuget push "**/*.snupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetApiKey }}
