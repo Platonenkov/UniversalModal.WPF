@@ -28,8 +28,6 @@ jobs:
       - name: Publish GitHub
         run: |
           dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://nuget.pkg.github.com/Platonenkov/index.json -k ${{secrets.GITHUB_TOKEN}}
-          dotnet nuget push "**/*.snupkg" --skip-duplicate --source https://nuget.pkg.github.com/Platonenkov/index.json -k ${{secrets.GITHUB_TOKEN}}
       - name: Publish NuGet
         run: |
           dotnet nuget push "**/*.nupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetApiKey }} 
-          dotnet nuget push "**/*.snupkg" --skip-duplicate -s https://api.nuget.org/v3/index.json -k ${{ secrets.NuGetApiKey }}
