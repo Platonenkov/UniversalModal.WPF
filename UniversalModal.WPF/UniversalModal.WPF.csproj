@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;netcoreapp3.1-windows;net4.6-windows;net4.6.1-windows;net4.7-windows;net4.8-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows;net5.0-windows;netcoreapp3.1-windows;net4.6-windows;net4.6.1-windows;net4.7-windows;net4.8-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <Description>Модальное окно для WPF
@@ -25,9 +25,7 @@ implement IEnumerable container
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>https://github.com/Platonenkov</Copyright>
     <Authors>APlatonenkov</Authors>
-    <Version>1.0.0.3</Version>
-    <AssemblyVersion>1.0.0.3</AssemblyVersion>
-    <FileVersion>1.0.0.3</FileVersion>
+    <Version>1.0.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>

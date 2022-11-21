@@ -10,5 +10,5 @@
         Title="EnumerableTestWindow" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance interfaces:IEnumerableUniversalModalContainer, IsDesignTimeCreatable=True}">
-    <views:EnumerableUniversalModalContainerView DataContext="{Binding}"/>
+    <views:EnumerableUniversalModalContainerView IsReadOnly="True" DataContext="{Binding}"/>
 </Window>
